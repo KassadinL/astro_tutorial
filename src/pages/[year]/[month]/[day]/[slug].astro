@@ -1,0 +1,27 @@
+---
+import { getCollection, render } from 'astro:content';
+import MarkdownPostLayout from '../../../../layouts/MarkdownPostLayout.astro';
+import * as FormatDate from '../../../../scripts/FormatDate';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => {
+    const publishDate: Date = post.data.pubDate;
+    return {
+      params: {
+        year: FormatDate.year_path(publishDate),
+        month: FormatDate.month_path(publishDate),
+        day: FormatDate.day_path(publishDate),
+        slug: post.id,
+      },
+      props: { post },
+    }
+  });
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<MarkdownPostLayout frontmatter={post.data}>
+    <Content />
+</MarkdownPostLayout>

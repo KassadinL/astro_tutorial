@@ -3,6 +3,7 @@ import type { GetStaticPaths } from "astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogPost from "../../components/BlogPost.astro";
 import { getCollection } from "astro:content";
+import * as FormateDate from "../../scripts/FormatDate";
 
 export const getStaticPaths = (async() => {
     const allPosts = await getCollection("blog");
@@ -24,6 +25,13 @@ const {posts} = Astro.props;
 <BaseLayout pageTitle={tag}>
     <p>Posts tagged with <em>#{tag}</em></p>
     <ul>
-        {posts.map((post: any) => <BlogPost url=`/posts/{post.id}` title={post.data.title} />)}
+        {posts.map((post: any) => {
+            // url=`${datePath(post.data.pubDate)}/${post.id}`
+            // will get reletive path likes `kassadin.moe/tags/2025/01/01/post-1`
+            //
+            // url=`/${datePath(post.data.pubDate)}/${post.id}`
+            // will get absolute path likes `kassadin.moe/2025/01/01/post-1`
+            return (<BlogPost url=`/${FormateDate.datePath(post.data.pubDate)}/${post.id}` title={post.data.title} />)
+        })}
     </ul>
 </BaseLayout>

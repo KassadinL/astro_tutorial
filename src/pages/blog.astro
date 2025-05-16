@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlogPost from "../components/BlogPost.astro";
 import { getCollection } from "astro:content";
+import { datePath } from "../scripts/FormatDate";
+
 const allPosts = await getCollection("blog");
 const pageTitle = "My Astro Learning Blog";
 ---
@@ -13,6 +15,9 @@ const pageTitle = "My Astro Learning Blog";
 	<p>This site will update as I complete more of the tutorial, so keep checking back and see how my journey is going!</p>
 	
 	<ul>
-		{allPosts.map((post: any) => <BlogPost url={`/posts/${post.id}`} title={post.data.title} />)}
+		
+		{allPosts.map((post: any) => {
+			return <BlogPost url=`/${datePath(post.data.pubDate)}/${post.id}` title={post.data.title} />;
+		})}
 	</ul>
 </BaseLayout>
