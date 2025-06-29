@@ -2,7 +2,6 @@
 import { defineConfig } from 'astro/config';
 
 import preact from "@astrojs/preact";
-import mdx from '@astrojs/mdx';
 import expressiveCode from "astro-expressive-code";
 import rehypeMermaid from 'rehype-mermaid';
 
@@ -29,5 +28,5 @@ export default defineConfig({
         },
       },
     }),
-    mdx()]
+  ]
 });

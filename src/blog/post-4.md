@@ -23,16 +23,64 @@ function partial_permutation(pool, require_length) {
 
 ## Mermaid Diagram Sample
 
-````md title="test_chart.mermaid"
+````md title="test_chart"
 ```mermaid
 flowchart LR
-  A --> B
+  A[This is text in A]
+  B>This is text in B]
+  C[/This is text in C/]
+  D[(This is text in D)]
+  
+  A --> B --> C --> D
 ```
 ````
 
 above code will generate following diagram:
 
-```mermaid title="test_chart.mermaid"
+```mermaid
 flowchart LR
-  A --> B
+  A[This is text in A]
+  B>This is text in B]
+  C[/This is text in C/]
+  D[(This is text in D)]
+
+  A --> B --> C --> D
+```
+
+### [MDN shared assets sample](https://github.com/mdn/shared-assets/blob/main/images/diagrams/http/redirections/301-redirection.mmd)
+
+````md title="MDN shared assets sample"
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+
+    Note left of Client: Request resource
+    Client->>Server: GET /doc HTTP/1.1
+    Note right of Server: Resource moved<br>Respond with new location
+    Server-->>Client: HTTP/1.1 301 Moved Permanently<br/>Location: /doc_new
+
+    Note left of Client: Request resource at new location
+    Client->>Server: GET /doc_new HTTP/1.1
+    Note right of Server: Return resource
+    Server-->>Client: HTTP/1.1 200 OK
+```
+````
+
+will render as following:
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+
+    Note left of Client: Request resource
+    Client->>Server: GET /doc HTTP/1.1
+    Note right of Server: Resource moved<br>Respond with new location
+    Server-->>Client: HTTP/1.1 301 Moved Permanently<br/>Location: /doc_new
+
+    Note left of Client: Request resource at new location
+    Client->>Server: GET /doc_new HTTP/1.1
+    Note right of Server: Return resource
+    Server-->>Client: HTTP/1.1 200 OK
 ```
